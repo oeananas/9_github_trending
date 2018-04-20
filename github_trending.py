@@ -25,8 +25,8 @@ def get_open_issues_amount(repo_full_name):
     response = requests.get(
         'https://api.github.com/repos/{}/issues'.format(repo_full_name)
     )
-    for info in json.loads(response.content):
-        return info['number']
+    for response_info in json.loads(response.content):
+        return response_info['number']
 
 
 if __name__ == '__main__':
@@ -35,9 +35,9 @@ if __name__ == '__main__':
     trending_repositories = get_trending_repositories(last_week_date, top_size)
     print('list of the most trending repositories for last week: \n')
     try:
-        for info in trending_repositories:
-            full_name = info['full_name']
-            repo_url = info['html_url']
+        for repo_info in trending_repositories:
+            full_name = repo_info['full_name']
+            repo_url = repo_info['html_url']
             issues_count = get_open_issues_amount(full_name)
             print('url: {}, open issues: {}'.format(repo_url, issues_count))
     except TypeError:
