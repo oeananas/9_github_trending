@@ -34,8 +34,11 @@ if __name__ == '__main__':
     top_size = 20
     trending_repositories = get_trending_repositories(last_week_date, top_size)
     print('list of the most trending repositories for last week: \n')
-    for info in trending_repositories:
-        full_name = info['full_name']
-        repo_url = info['html_url']
-        issues_count = get_open_issues_amount(full_name)
-        print(f'url: {repo_url}, open issues: {issues_count}')
+    try:
+        for info in trending_repositories:
+            full_name = info['full_name']
+            repo_url = info['html_url']
+            issues_count = get_open_issues_amount(full_name)
+            print(f'url: {repo_url}, open issues: {issues_count}')
+    except TypeError:
+        exit('query limit exceeded')
